@@ -16,7 +16,7 @@ It's a game where the player is an eagle that is flying through the sky and has 
 - [ ] Create the environment
   - [x] Sky
   - [x] Cloud
-  - [ ] "Parallax" Background
+  - [x] "Parallax" Background
   - [ ] Water
   - [ ] Spawn salmon
 

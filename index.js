@@ -145,6 +145,15 @@ class Background {
       }
     });
   }
+
+  spawnClouds() {
+    setInterval(() => {
+      const x = canvas.width + 100;
+      const y = Math.floor(Math.random() * canvas.height);
+      const cloud = new Cloud(x, y);
+      this.clouds.push(cloud);
+    }, 1000);
+  }
 }
 
 let player = new Player(75, 250, 50, "red");
@@ -159,6 +168,7 @@ function animate() {
 }
 
 animate();
+bg.spawnClouds();
 
 // function init() {
 //   player = new Player(10, 10, 50, "red");
