@@ -10,6 +10,7 @@ It's a game where the player is an eagle that is flying through the sky and has 
 - [ ] Add timing bar for gameplay
 - [ ] Player lives
 - [ ] Game over screen
+- [ ] Start Screen
 
 ### In Progress
 
@@ -17,7 +18,7 @@ It's a game where the player is an eagle that is flying through the sky and has 
   - [x] Sky
   - [x] Cloud
   - [x] "Parallax" Background
-  - [ ] Water
+  - [x] Water
   - [ ] Spawn salmon
 
 ### Done ✓
