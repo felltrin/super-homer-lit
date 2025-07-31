@@ -1,9 +1,6 @@
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext("2d");
 
-canvas.width = innerWidth;
-canvas.height = innerHeight;
-
 class Player {
   constructor(x, y, size, color) {
     this.x = x;
@@ -158,15 +155,36 @@ class Background {
   }
 }
 
+class PourMeter {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  draw() {
+    c.fillStyle = "red";
+    c.fillRect(this.x, this.y, 500, 50);
+  }
+}
+
 let player = new Player(75, 250, 50, "red");
 const bg = new Background(0, 0);
 bg.initialize();
 
 function animate() {
   window.requestAnimationFrame(animate);
+  resizeCanvasToActual();
+
   bg.draw();
   bg.update();
   player.draw();
+}
+
+function resizeCanvasToActual() {
+  if (canvas.width !== innerWidth || canvas.height !== innerHeight) {
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+  }
 }
 
 animate();
