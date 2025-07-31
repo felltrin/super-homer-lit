@@ -134,7 +134,7 @@ class Background {
       cloud.draw();
     }
     c.fillStyle = "blue";
-    c.fillRect(0, canvas.height - 50, canvas.height, 50);
+    c.fillRect(0, canvas.height - 50, canvas.width, 50);
   }
 
   update() {
