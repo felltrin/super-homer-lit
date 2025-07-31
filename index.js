@@ -45,6 +45,8 @@ class Cloud {
     this.color = "white";
     this.radius = 30;
 
+    this.cloudSpeed = 3;
+
     // first circle fields
     this.firstCircleY = this.y - 5;
 
@@ -93,6 +95,13 @@ class Cloud {
       this.bottomRectHeight
     );
   }
+
+  update() {
+    this.circle.x -= this.cloudSpeed;
+    this.circleTwo.x -= this.cloudSpeed;
+    this.circleThree.x -= this.cloudSpeed;
+    this.bottomRectX -= this.cloudSpeed;
+  }
 }
 
 class Background {
@@ -118,27 +127,40 @@ class Background {
   }
 
   draw() {
+    c.clearRect(0, 0, canvas.width, canvas.height);
     c.fillStyle = this.backgroundColor;
     c.fillRect(this.x, this.y, canvas.width, canvas.height);
     for (let cloud of this.clouds) {
       cloud.draw();
     }
   }
+
+  update() {
+    for (let cloud of this.clouds) {
+      cloud.update();
+    }
+  }
 }
 
-const bg = new Background(0, 0);
 let player = new Player(75, 250, 50, "red");
-
+const bg = new Background(0, 0);
 bg.initialize();
-bg.draw();
-player.draw();
 
-function init() {
-  player = new Player(10, 10, 50, "red");
-
-  // move to animate function
+function animate() {
+  window.requestAnimationFrame(animate);
+  bg.draw();
+  bg.update();
   player.draw();
-  c.fillStyle = "rgba(0, 0, 0, 0.2)";
 }
+
+animate();
+
+// function init() {
+//   player = new Player(10, 10, 50, "red");
+
+// move to animate function
+//   player.draw();
+//   c.fillStyle = "rgba(0, 0, 0, 0.2)";
+// }
 
 // init();
