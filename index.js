@@ -136,9 +136,14 @@ class Background {
   }
 
   update() {
-    for (let cloud of this.clouds) {
+    this.clouds.forEach((cloud, index) => {
       cloud.update();
-    }
+
+      // removes cloud once off the screen
+      if (cloud.circleTwo.x < -50) {
+        this.clouds.splice(index, 1);
+      }
+    });
   }
 }
 
