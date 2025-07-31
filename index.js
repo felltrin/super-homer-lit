@@ -169,13 +169,3 @@ function animate() {
 
 animate();
 bg.spawnClouds();
-
-// function init() {
-//   player = new Player(10, 10, 50, "red");
-
-// move to animate function
-//   player.draw();
-//   c.fillStyle = "rgba(0, 0, 0, 0.2)";
-// }
-
-// init();
