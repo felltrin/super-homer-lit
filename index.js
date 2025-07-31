@@ -133,6 +133,8 @@ class Background {
     for (let cloud of this.clouds) {
       cloud.draw();
     }
+    c.fillStyle = "blue";
+    c.fillRect(0, canvas.height - 50, canvas.height, 50);
   }
 
   update() {
