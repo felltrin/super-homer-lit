@@ -1,5 +1,7 @@
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext("2d");
+canvas.width = innerWidth;
+canvas.height = innerHeight;
 
 class Player {
   constructor(x, y, size, color) {
@@ -155,20 +157,78 @@ class Background {
   }
 }
 
+class PourMeterIndicator {
+  constructor(x, y, endX, height) {
+    this.x = x;
+    this.y = y;
+
+    this.height = height;
+    this.endX = endX;
+    this.startX = x;
+
+    this.width = 10;
+    this.speed = 5;
+    this.hitRight = false;
+  }
+
+  draw() {
+    c.fillStyle = "black";
+    c.fillRect(this.x, this.y, this.width, this.height);
+  }
+
+  update() {
+    if (this.x === this.endX - this.width) {
+      this.hitRight = true;
+    } else if (this.x === this.startX) {
+      this.hitRight = false;
+    }
+    if (!this.hitRight) {
+      this.x += this.speed;
+    } else {
+      this.x -= this.speed;
+    }
+  }
+}
+
 class PourMeter {
   constructor(x, y) {
     this.x = x;
     this.y = y;
+    this.width = 250;
+    this.height = 25;
+
+    this.hitZoneX = this.x + 25;
+    this.indicator = new PourMeterIndicator(
+      this.x,
+      this.y,
+      this.x + this.width,
+      25
+    );
   }
 
   draw() {
     c.fillStyle = "red";
-    c.fillRect(this.x, this.y, 500, 50);
+    c.fillRect(this.x, this.y, this.width, this.height);
+    c.fillStyle = "green";
+    c.fillRect(this.hitZoneX, this.y, 200, 25);
+    this.indicator.draw();
+  }
+
+  update() {
+    this.indicator.update();
   }
 }
 
-let player = new Player(75, 250, 50, "red");
+const key = {
+  space: {
+    pressed: false,
+  },
+};
+
 const bg = new Background(0, 0);
+const pourMeter = new PourMeter(300, 50);
+let player = new Player(75, 250, 50, "red");
+
 bg.initialize();
 
 function animate() {
@@ -178,6 +238,8 @@ function animate() {
   bg.draw();
   bg.update();
   player.draw();
+  pourMeter.draw();
+  pourMeter.update();
 }
 
 function resizeCanvasToActual() {
@@ -189,3 +251,15 @@ function resizeCanvasToActual() {
 
 animate();
 bg.spawnClouds();
+
+addEventListener("keydown", (event) => {
+  if (event.key === " ") {
+    key.space.pressed = true;
+  }
+});
+
+addEventListener("keyup", (event) => {
+  if (event.key === " ") {
+    key.space.pressed = false;
+  }
+});
