@@ -190,6 +190,12 @@ class PourMeterIndicator {
   }
 }
 
+const key = {
+  space: {
+    pressed: false,
+  },
+};
+
 class PourMeter {
   constructor(x, y) {
     this.x = x;
@@ -197,7 +203,8 @@ class PourMeter {
     this.width = 250;
     this.height = 25;
 
-    this.hitZoneX = this.x + 25;
+    this.hitZoneX = this.x + 55;
+    this.hitZoneWidth = 100;
     this.indicator = new PourMeterIndicator(
       this.x,
       this.y,
@@ -210,20 +217,21 @@ class PourMeter {
     c.fillStyle = "red";
     c.fillRect(this.x, this.y, this.width, this.height);
     c.fillStyle = "green";
-    c.fillRect(this.hitZoneX, this.y, 200, 25);
+    c.fillRect(this.hitZoneX, this.y, this.hitZoneWidth, 25);
     this.indicator.draw();
   }
 
   update() {
     this.indicator.update();
+    if (
+      key.space.pressed &&
+      this.indicator.x > this.hitZoneX &&
+      this.indicator.x < this.hitZoneX + this.hitZoneWidth
+    ) {
+      this.indicator.speed = 0;
+    }
   }
 }
-
-const key = {
-  space: {
-    pressed: false,
-  },
-};
 
 const bg = new Background(0, 0);
 const pourMeter = new PourMeter(300, 50);
@@ -252,14 +260,14 @@ function resizeCanvasToActual() {
 animate();
 bg.spawnClouds();
 
-addEventListener("keydown", (event) => {
-  if (event.key === " ") {
-    key.space.pressed = true;
-  }
-});
-
-addEventListener("keyup", (event) => {
-  if (event.key === " ") {
+setInterval(() => {
+  if (key.space.pressed) {
     key.space.pressed = false;
+  }
+}, 15);
+
+addEventListener("keypress", (event) => {
+  if (event.key === " " && !event.repeat) {
+    key.space.pressed = true;
   }
 });
