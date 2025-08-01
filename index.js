@@ -1,7 +1,7 @@
 const canvas = document.querySelector("canvas");
-const c = canvas.getContext("2d");
 canvas.width = innerWidth;
 canvas.height = innerHeight;
+const c = canvas.getContext("2d");
 
 class Player {
   constructor(x, y, size, color) {
@@ -195,6 +195,7 @@ const key = {
     pressed: false,
   },
 };
+let isTime;
 
 class PourMeter {
   constructor(x, y) {
@@ -209,7 +210,7 @@ class PourMeter {
       this.x,
       this.y,
       this.x + this.width,
-      25
+      this.height
     );
   }
 
@@ -219,35 +220,44 @@ class PourMeter {
     c.fillStyle = "green";
     c.fillRect(this.hitZoneX, this.y, this.hitZoneWidth, 25);
     this.indicator.draw();
+    c.strokeStyle = "black";
+    c.strokeRect(this.x, this.y, this.width, this.height);
   }
 
   update() {
     this.indicator.update();
-    if (
-      key.space.pressed &&
-      this.indicator.x > this.hitZoneX &&
-      this.indicator.x < this.hitZoneX + this.hitZoneWidth
-    ) {
-      this.indicator.speed = 0;
+    if (key.space.pressed) {
+      if (
+        this.indicator.x > this.hitZoneX &&
+        this.indicator.x < this.hitZoneX + this.hitZoneWidth
+      ) {
+        // this.indicator.speed = 0;
+        console.log("you hit!");
+      }
+      isTime = false;
     }
   }
 }
 
 const bg = new Background(0, 0);
-const pourMeter = new PourMeter(300, 50);
+const pourMeter = new PourMeter(canvas.width / 2 - 125, 50);
 let player = new Player(75, 250, 50, "red");
+isTime = false;
 
 bg.initialize();
 
+let animationId;
 function animate() {
-  window.requestAnimationFrame(animate);
+  animationId = window.requestAnimationFrame(animate);
   resizeCanvasToActual();
 
   bg.draw();
   bg.update();
   player.draw();
-  pourMeter.draw();
-  pourMeter.update();
+  if (isTime) {
+    pourMeter.draw();
+    pourMeter.update();
+  }
 }
 
 function resizeCanvasToActual() {
@@ -271,3 +281,15 @@ addEventListener("keypress", (event) => {
     key.space.pressed = true;
   }
 });
+
+let firstTime = true;
+setInterval(() => {
+  if (!isTime && firstTime) {
+    isTime = true;
+    firstTime = false;
+  } else if (isTime && !firstTime) {
+    isTime = false;
+  } else {
+    isTime = true;
+  }
+}, 3000);
