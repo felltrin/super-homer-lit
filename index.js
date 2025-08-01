@@ -1,6 +1,5 @@
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext("2d");
-
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 
@@ -158,16 +157,117 @@ class Background {
   }
 }
 
-let player = new Player(75, 250, 50, "red");
+class PourMeterIndicator {
+  constructor(x, y, endX, height) {
+    this.x = x;
+    this.y = y;
+
+    this.height = height;
+    this.endX = endX;
+    this.startX = x;
+
+    this.width = 10;
+    this.speed = 5;
+    this.hitRight = false;
+  }
+
+  draw() {
+    c.fillStyle = "black";
+    c.fillRect(this.x, this.y, this.width, this.height);
+  }
+
+  update() {
+    if (this.x === this.endX - this.width) {
+      this.hitRight = true;
+    } else if (this.x === this.startX) {
+      this.hitRight = false;
+    }
+    if (!this.hitRight) {
+      this.x += this.speed;
+    } else {
+      this.x -= this.speed;
+    }
+  }
+}
+
+const key = {
+  space: {
+    pressed: false,
+  },
+};
+
+class PourMeter {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.width = 250;
+    this.height = 25;
+
+    this.hitZoneX = this.x + 55;
+    this.hitZoneWidth = 100;
+    this.indicator = new PourMeterIndicator(
+      this.x,
+      this.y,
+      this.x + this.width,
+      25
+    );
+  }
+
+  draw() {
+    c.fillStyle = "red";
+    c.fillRect(this.x, this.y, this.width, this.height);
+    c.fillStyle = "green";
+    c.fillRect(this.hitZoneX, this.y, this.hitZoneWidth, 25);
+    this.indicator.draw();
+  }
+
+  update() {
+    this.indicator.update();
+    if (
+      key.space.pressed &&
+      this.indicator.x > this.hitZoneX &&
+      this.indicator.x < this.hitZoneX + this.hitZoneWidth
+    ) {
+      this.indicator.speed = 0;
+    }
+  }
+}
+
 const bg = new Background(0, 0);
+const pourMeter = new PourMeter(300, 50);
+let player = new Player(75, 250, 50, "red");
+
 bg.initialize();
 
 function animate() {
   window.requestAnimationFrame(animate);
+  resizeCanvasToActual();
+
   bg.draw();
   bg.update();
   player.draw();
+  pourMeter.draw();
+  pourMeter.update();
+}
+
+function resizeCanvasToActual() {
+  if (canvas.width !== innerWidth || canvas.height !== innerHeight) {
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+  }
 }
 
 animate();
 bg.spawnClouds();
+
+setInterval(() => {
+  if (key.space.pressed) {
+    key.space.pressed = false;
+  }
+}, 15);
+
+addEventListener("keypress", (event) => {
+  if (event.key === " " && !event.repeat) {
+    key.space.pressed = true;
+  }
+});
