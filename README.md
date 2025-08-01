@@ -7,10 +7,10 @@ It's a game where the player is an eagle that is flying through the sky and has 
 ### Todo
 
 - [ ] Player timer for diving down
-- [ ] Add timing bar for gameplay
 - [ ] Player lives
-- [ ] Game over screen
-- [ ] Start Screen
+- [ ] UI
+  - [ ] Game over screen
+  - [ ] Start Screen
 
 ### In Progress
 
@@ -24,3 +24,4 @@ It's a game where the player is an eagle that is flying through the sky and has 
 ### Done ✓
 
 - [x] Create the player
+- [x] Add timing bar for gameplay
