@@ -188,6 +188,10 @@ class PourMeterIndicator {
       this.x -= this.speed;
     }
   }
+
+  reset() {
+    this.x = this.startX;
+  }
 }
 
 const key = {
@@ -235,6 +239,7 @@ class PourMeter {
         console.log("you hit!");
       }
       isTime = false;
+      this.indicator.reset();
     }
   }
 }
@@ -289,6 +294,7 @@ setInterval(() => {
     firstTime = false;
   } else if (isTime && !firstTime) {
     isTime = false;
+    pourMeter.indicator.reset();
   } else {
     isTime = true;
   }
