@@ -237,6 +237,8 @@ class PourMeter {
         this.indicator.x < this.hitZoneX + this.hitZoneWidth
       ) {
         // this.indicator.speed = 0;
+        // increase score
+        // remove relevant salmon from screen
         console.log("you hit!");
       }
       isTime = false;
