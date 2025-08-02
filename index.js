@@ -200,6 +200,7 @@ const key = {
   },
 };
 let isTime;
+let pourMeterInterval;
 
 class PourMeter {
   constructor(x, y) {
@@ -230,16 +231,20 @@ class PourMeter {
 
   update() {
     this.indicator.update();
-    if (key.space.pressed) {
+    if (key.space.pressed && isTime) {
       if (
         this.indicator.x > this.hitZoneX &&
         this.indicator.x < this.hitZoneX + this.hitZoneWidth
       ) {
         // this.indicator.speed = 0;
+        // increase score
+        // remove relevant salmon from screen
         console.log("you hit!");
       }
       isTime = false;
       this.indicator.reset();
+      clearInterval(pourMeterInterval);
+      startPourMeter();
     }
   }
 }
@@ -274,6 +279,7 @@ function resizeCanvasToActual() {
 
 animate();
 bg.spawnClouds();
+startPourMeter();
 
 setInterval(() => {
   if (key.space.pressed) {
@@ -288,14 +294,16 @@ addEventListener("keypress", (event) => {
 });
 
 let firstTime = true;
-setInterval(() => {
-  if (!isTime && firstTime) {
-    isTime = true;
-    firstTime = false;
-  } else if (isTime && !firstTime) {
-    isTime = false;
-    pourMeter.indicator.reset();
-  } else {
-    isTime = true;
-  }
-}, 3000);
+function startPourMeter() {
+  pourMeterInterval = setInterval(() => {
+    if (!isTime && firstTime) {
+      isTime = true;
+      firstTime = false;
+    } else if (isTime && !firstTime) {
+      isTime = false;
+      pourMeter.indicator.reset();
+    } else {
+      isTime = true;
+    }
+  }, 3000);
+}
