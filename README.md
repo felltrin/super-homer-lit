@@ -6,19 +6,16 @@ It's a game where the player is an eagle that is flying through the sky and has 
 
 ### Todo
 
-- [ ] Increase difficulty
+- [ ] Player lives
+- [ ] Game over screen
+- [ ] Start Screen
+  - [ ] Start Button
+  - [ ] About / Controls page
+- [ ] progression
   - [ ] Green area becomes smaller
   - [ ] Indicator speed increases
 
 ### In Progress
-
-- [ ] UI
-  - [ ] Score
-  - [ ] Player lives
-  - [ ] Game over screen
-  - [ ] Start Screen
-    - [ ] Start Button
-    - [ ] About / Controls page
 
 ### Done ✓
 
@@ -31,3 +28,4 @@ It's a game where the player is an eagle that is flying through the sky and has 
   - [x] "Parallax" Background
   - [x] Water
   - [x] Spawn salmon
+- [x] Score
