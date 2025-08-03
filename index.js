@@ -3,6 +3,8 @@ canvas.width = innerWidth;
 canvas.height = innerHeight;
 const c = canvas.getContext("2d");
 
+const scoreEl = document.querySelector("#scoreEl");
+
 class Player {
   constructor(x, y, size, color) {
     this.x = x;
@@ -229,7 +231,8 @@ class PourMeter {
         this.indicator.x < this.hitZoneX + this.hitZoneWidth
       ) {
         // increase score
-        console.log("you hit!");
+        score += 100;
+        scoreEl.innerHTML = score;
       } else {
         nonTargets.push(curTarget);
       }
@@ -271,6 +274,7 @@ const key = {
   },
 };
 const player = new Player(75, 250, 50, "red");
+let score = 0;
 let curTarget = null;
 let firstTime;
 let isTime;
