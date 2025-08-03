@@ -6,7 +6,6 @@ It's a game where the player is an eagle that is flying through the sky and has 
 
 ### Todo
 
-- [ ] Player lives
 - [ ] Game over screen
 - [ ] Start Screen
   - [ ] Start Button
@@ -16,6 +15,8 @@ It's a game where the player is an eagle that is flying through the sky and has 
   - [ ] Indicator speed increases
 
 ### In Progress
+
+- [ ] Player lives
 
 ### Done ✓
 
