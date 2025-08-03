@@ -6,22 +6,24 @@ It's a game where the player is an eagle that is flying through the sky and has 
 
 ### Todo
 
-- [ ] Player timer for diving down
-- [ ] Player lives
-- [ ] UI
-  - [ ] Game over screen
-  - [ ] Start Screen
-
 ### In Progress
 
-- [ ] Create the environment
-  - [x] Sky
-  - [x] Cloud
-  - [x] "Parallax" Background
-  - [x] Water
-  - [ ] Spawn salmon
+- [ ] UI
+  - [ ] Score
+  - [ ] Player lives
+  - [ ] Game over screen
+  - [ ] Start Screen
+    - [ ] Start Button
+    - [ ] About / Controls page
 
 ### Done ✓
 
 - [x] Create the player
 - [x] Add timing bar for gameplay
+- [x] Player timer for diving down
+- [x] Create the environment
+  - [x] Sky
+  - [x] Cloud
+  - [x] "Parallax" Background
+  - [x] Water
+  - [x] Spawn salmon
