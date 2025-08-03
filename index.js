@@ -8,6 +8,9 @@ const livesEl = document.querySelector("#livesEl");
 const startGameBtn = document.querySelector("#startGameBtn");
 const modalEl = document.querySelector("#modalEl");
 const modalScore = document.querySelector("#modalScore");
+const controlsModal = document.querySelector("#controlsModalEl");
+const controlsBtn = document.querySelector("#controlsBtn");
+const backBtn = document.querySelector("#backBtn");
 
 class Player {
   constructor(x, y, size, color) {
@@ -289,6 +292,7 @@ let pourMeterInterval = 0;
 let spawnCloudInterval = 0;
 
 bg.initialize();
+controlsModal.style.display = "none";
 
 function init() {
   bg = new Background(0, 0);
@@ -303,6 +307,7 @@ function init() {
   score = 0;
   scoreEl.innerHTML = score;
   lives = 3;
+  livesEl.innerHTML = lives;
   curTarget = null;
   firstTime = true;
   isTime = false;
@@ -357,6 +362,16 @@ startGameBtn.addEventListener("click", () => {
   modalEl.style.display = "none";
 });
 
+controlsBtn.addEventListener("click", () => {
+  modalEl.style.display = "none";
+  controlsModal.style.display = "flex";
+});
+
+backBtn.addEventListener("click", () => {
+  controlsModal.style.display = "none";
+  modalEl.style.display = "flex";
+});
+
 function resizeCanvasToActual() {
   if (canvas.width !== innerWidth || canvas.height !== innerHeight) {
     canvas.width = innerWidth;
@@ -376,7 +391,6 @@ addEventListener("keypress", (event) => {
   }
 });
 
-// firstTime = true;
 function startPourMeter() {
   pourMeterInterval = setInterval(() => {
     if (!isTime && firstTime) {
