@@ -7,8 +7,8 @@ It's a game where the player is an eagle that is flying through the sky and has 
 ## How To Run
 
 - You can run this one of two ways
-  - Once the zip file is unzip, double click on the index.html file
-  - OR, you can go to this link: gmtk-twenty-five.netlify.app
+  - Once the zip file is unzipped, double click on the index.html file
+  - OR, you can [click here](https://gmtk-twenty-five.netlify.app)
 
 ### Todo
 
