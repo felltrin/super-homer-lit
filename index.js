@@ -307,6 +307,7 @@ function init() {
   score = 0;
   scoreEl.innerHTML = score;
   lives = 3;
+  livesEl.innerHTML = lives;
   curTarget = null;
   firstTime = true;
   isTime = false;

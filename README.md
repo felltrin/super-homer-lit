@@ -31,3 +31,7 @@ It's a game where the player is an eagle that is flying through the sky and has 
 - [x] Start Screen
   - [x] Start Button
   - [x] Controls page
+
+## Resources
+
+- https://pixelartmaker.com/art/1289396574d3298
