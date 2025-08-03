@@ -236,13 +236,13 @@ class PourMeter {
         this.indicator.x > this.hitZoneX &&
         this.indicator.x < this.hitZoneX + this.hitZoneWidth
       ) {
-        // this.indicator.speed = 0;
         // increase score
         console.log("you hit!");
       } else {
-        offTarget = curTarget;
+        nonTargets.push(curTarget);
       }
-      // remove relevant salmon from screen
+      // remove relevant salmon from
+      // pour meter connection
       curTarget = null;
       isTime = false;
       this.indicator.reset();
@@ -272,10 +272,9 @@ class Salmon {
 
 const bg = new Background(0, 0);
 const pourMeter = new PourMeter(canvas.width / 2 - 125, 50);
-const testTarget = new Salmon(canvas.width, canvas.height - 30);
+const nonTargets = [];
 let player = new Player(75, 250, 50, "red");
 let curTarget = null;
-let offTarget = null;
 
 bg.initialize();
 isTime = false;
@@ -299,12 +298,17 @@ function animate() {
       curTarget.x = canvas.width;
     }
   }
-  if (offTarget) {
-    offTarget.draw();
-    offTarget.update();
-    if (offTarget.x < -15) {
-      offTarget = null;
-    }
+  if (nonTargets.length > 0) {
+    nonTargets.forEach((target, index) => {
+      target.draw();
+      target.update();
+
+      // removes salmon once off the screen
+      if (target.x < -15) {
+        nonTargets.splice(index, 1);
+        console.log(nonTargets);
+      }
+    });
   }
 }
 
@@ -342,7 +346,7 @@ function startPourMeter() {
       isTime = false;
       pourMeter.indicator.reset();
       if (curTarget) {
-        offTarget = curTarget;
+        nonTargets.push(curTarget);
         curTarget = null;
       }
     } else {
