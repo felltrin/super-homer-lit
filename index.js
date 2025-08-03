@@ -390,7 +390,6 @@ addEventListener("keypress", (event) => {
   }
 });
 
-// firstTime = true;
 function startPourMeter() {
   pourMeterInterval = setInterval(() => {
     if (!isTime && firstTime) {

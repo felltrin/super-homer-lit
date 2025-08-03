@@ -6,16 +6,11 @@ It's a game where the player is an eagle that is flying through the sky and has 
 
 ### Todo
 
+### In Progress
+
 - [ ] progression
   - [ ] Green area becomes smaller
   - [ ] Indicator speed increases
-
-### In Progress
-
-- [ ] Start Screen
-  - [x] Start Button
-  - [ ] Controls page
-  - [ ] about page
 
 ### Done ✓
 
@@ -33,3 +28,6 @@ It's a game where the player is an eagle that is flying through the sky and has 
 - [x] Game over screen
   - [x] score
   - [x] restart button
+- [x] Start Screen
+  - [x] Start Button
+  - [x] Controls page
