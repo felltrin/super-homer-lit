@@ -6,7 +6,6 @@ It's a game where the player is an eagle that is flying through the sky and has 
 
 ### Todo
 
-- [ ] Game over screen
 - [ ] Start Screen
   - [ ] Start Button
   - [ ] About / Controls page
@@ -16,7 +15,7 @@ It's a game where the player is an eagle that is flying through the sky and has 
 
 ### In Progress
 
-- [ ] Player lives
+- [ ] Game over screen
 
 ### Done ✓
 
@@ -30,3 +29,4 @@ It's a game where the player is an eagle that is flying through the sky and has 
   - [x] Water
   - [x] Spawn salmon
 - [x] Score
+- [x] Player lives

@@ -4,6 +4,7 @@ canvas.height = innerHeight;
 const c = canvas.getContext("2d");
 
 const scoreEl = document.querySelector("#scoreEl");
+const livesEl = document.querySelector("#livesEl");
 
 class Player {
   constructor(x, y, size, color) {
@@ -235,6 +236,8 @@ class PourMeter {
         scoreEl.innerHTML = score;
       } else {
         nonTargets.push(curTarget);
+        lives -= 1;
+        livesEl.innerHTML = lives;
       }
       // remove relevant salmon from
       // pour meter connection
@@ -275,6 +278,7 @@ const key = {
 };
 const player = new Player(75, 250, 50, "red");
 let score = 0;
+let lives = 3;
 let curTarget = null;
 let firstTime;
 let isTime;
@@ -353,6 +357,8 @@ function startPourMeter() {
         nonTargets.push(curTarget);
         curTarget = null;
       }
+      lives -= 1;
+      livesEl.innerHTML = lives;
     } else {
       isTime = true;
       curTarget = new Salmon(canvas.width, canvas.height - 30);
