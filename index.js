@@ -5,6 +5,9 @@ const c = canvas.getContext("2d");
 
 const scoreEl = document.querySelector("#scoreEl");
 const livesEl = document.querySelector("#livesEl");
+const startGameBtn = document.querySelector("#startGameBtn");
+const modalEl = document.querySelector("#modalEl");
+const modalScore = document.querySelector("#modalScore");
 
 class Player {
   constructor(x, y, size, color) {
@@ -151,7 +154,7 @@ class Background {
   }
 
   spawnClouds() {
-    setInterval(() => {
+    spawnCloudInterval = setInterval(() => {
       const x = canvas.width + 100;
       const y = Math.floor(Math.random() * canvas.height);
       const cloud = new Cloud(x, y);
@@ -255,7 +258,7 @@ class Salmon {
     this.x = x;
     this.y = y;
 
-    this.swimSpeed = 2;
+    this.swimSpeed = 5;
   }
 
   draw() {
@@ -268,24 +271,46 @@ class Salmon {
   }
 }
 
-const bg = new Background(0, 0);
-const pourMeter = new PourMeter(canvas.width / 2 - 125, 50);
-const nonTargets = [];
-const key = {
+let bg = new Background(0, 0);
+let pourMeter = new PourMeter(canvas.width / 2 - 125, 50);
+let nonTargets = [];
+let key = {
   space: {
     pressed: false,
   },
 };
-const player = new Player(75, 250, 50, "red");
+let player = new Player(75, 250, 50, "red");
 let score = 0;
 let lives = 3;
 let curTarget = null;
-let firstTime;
-let isTime;
-let pourMeterInterval;
+let firstTime = true;
+let isTime = false;
+let pourMeterInterval = 0;
+let spawnCloudInterval = 0;
 
 bg.initialize();
-isTime = false;
+
+function init() {
+  bg = new Background(0, 0);
+  pourMeter = new PourMeter(canvas.width / 2 - 125, 50);
+  nonTargets = [];
+  key = {
+    space: {
+      pressed: false,
+    },
+  };
+  player = new Player(75, 250, 50, "red");
+  score = 0;
+  scoreEl.innerHTML = score;
+  lives = 3;
+  curTarget = null;
+  firstTime = true;
+  isTime = false;
+  pourMeterInterval = 0;
+  spawnCloudInterval = 0;
+
+  bg.initialize();
+}
 
 let animationId;
 function animate() {
@@ -302,9 +327,6 @@ function animate() {
   if (curTarget) {
     curTarget.draw();
     curTarget.update();
-    if (curTarget.x < -15) {
-      curTarget.x = canvas.width;
-    }
   }
   if (nonTargets.length > 0) {
     nonTargets.forEach((target, index) => {
@@ -314,15 +336,26 @@ function animate() {
       // removes salmon once off the screen
       if (target.x < -15) {
         nonTargets.splice(index, 1);
-        console.log(nonTargets);
       }
     });
   }
+  if (lives === 0) {
+    clearInterval(pourMeterInterval);
+    clearInterval(spawnCloudInterval);
+
+    cancelAnimationFrame(animationId);
+    modalEl.style.display = "flex";
+    modalScore.innerHTML = score;
+  }
 }
 
-animate();
-bg.spawnClouds();
-startPourMeter();
+startGameBtn.addEventListener("click", () => {
+  init();
+  animate();
+  bg.spawnClouds();
+  startPourMeter();
+  modalEl.style.display = "none";
+});
 
 function resizeCanvasToActual() {
   if (canvas.width !== innerWidth || canvas.height !== innerHeight) {
@@ -343,7 +376,7 @@ addEventListener("keypress", (event) => {
   }
 });
 
-firstTime = true;
+// firstTime = true;
 function startPourMeter() {
   pourMeterInterval = setInterval(() => {
     if (!isTime && firstTime) {
