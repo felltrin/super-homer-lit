@@ -6,6 +6,10 @@ It's a game where the player is an eagle that is flying through the sky and has 
 
 ### Todo
 
+- [ ] Increase difficulty
+  - [ ] Green area becomes smaller
+  - [ ] Indicator speed increases
+
 ### In Progress
 
 - [ ] UI
