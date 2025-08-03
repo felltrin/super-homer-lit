@@ -4,13 +4,15 @@ A game that is made during the GMTK Game Jam 2025.
 
 It's a game where the player is an eagle that is flying through the sky and has to catch as much salmon as possible by pressing the space bar at the right time.
 
+## How To Run
+
+- You can run this one of two ways
+  - Once the zip file is unzip, double click on the index.html file
+  - OR, you can go to this link: gmtk-twenty-five.netlify.app
+
 ### Todo
 
 ### In Progress
-
-- [ ] progression
-  - [ ] Green area becomes smaller
-  - [ ] Indicator speed increases
 
 ### Done ✓
 
@@ -32,6 +34,9 @@ It's a game where the player is an eagle that is flying through the sky and has 
   - [x] Start Button
   - [x] Controls page
 - [x] Adding sprites
+- [x] progression
+  - [x] Green area becomes smaller
+  - [x] Indicator speed increases
 
 ## Resources
 
