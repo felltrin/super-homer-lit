@@ -194,14 +194,6 @@ class PourMeterIndicator {
   }
 }
 
-const key = {
-  space: {
-    pressed: false,
-  },
-};
-let isTime;
-let pourMeterInterval;
-
 class PourMeter {
   constructor(x, y) {
     this.x = x;
@@ -273,8 +265,16 @@ class Salmon {
 const bg = new Background(0, 0);
 const pourMeter = new PourMeter(canvas.width / 2 - 125, 50);
 const nonTargets = [];
-let player = new Player(75, 250, 50, "red");
+const key = {
+  space: {
+    pressed: false,
+  },
+};
+const player = new Player(75, 250, 50, "red");
 let curTarget = null;
+let firstTime;
+let isTime;
+let pourMeterInterval;
 
 bg.initialize();
 isTime = false;
@@ -335,7 +335,7 @@ addEventListener("keypress", (event) => {
   }
 });
 
-let firstTime = true;
+firstTime = true;
 function startPourMeter() {
   pourMeterInterval = setInterval(() => {
     if (!isTime && firstTime) {
