@@ -238,9 +238,12 @@ class PourMeter {
       ) {
         // this.indicator.speed = 0;
         // increase score
-        // remove relevant salmon from screen
         console.log("you hit!");
+      } else {
+        offTarget = curTarget;
       }
+      // remove relevant salmon from screen
+      curTarget = null;
       isTime = false;
       this.indicator.reset();
       clearInterval(pourMeterInterval);
@@ -249,12 +252,33 @@ class PourMeter {
   }
 }
 
+class Salmon {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+
+    this.swimSpeed = 2;
+  }
+
+  draw() {
+    c.fillStyle = "#FFB19A";
+    c.fillRect(this.x, this.y, 15, 15);
+  }
+
+  update() {
+    this.x -= this.swimSpeed;
+  }
+}
+
 const bg = new Background(0, 0);
 const pourMeter = new PourMeter(canvas.width / 2 - 125, 50);
+const testTarget = new Salmon(canvas.width, canvas.height - 30);
 let player = new Player(75, 250, 50, "red");
-isTime = false;
+let curTarget = null;
+let offTarget = null;
 
 bg.initialize();
+isTime = false;
 
 let animationId;
 function animate() {
@@ -268,7 +292,25 @@ function animate() {
     pourMeter.draw();
     pourMeter.update();
   }
+  if (curTarget) {
+    curTarget.draw();
+    curTarget.update();
+    if (curTarget.x < -15) {
+      curTarget.x = canvas.width;
+    }
+  }
+  if (offTarget) {
+    offTarget.draw();
+    offTarget.update();
+    if (offTarget.x < -15) {
+      offTarget = null;
+    }
+  }
 }
+
+animate();
+bg.spawnClouds();
+startPourMeter();
 
 function resizeCanvasToActual() {
   if (canvas.width !== innerWidth || canvas.height !== innerHeight) {
@@ -276,10 +318,6 @@ function resizeCanvasToActual() {
     canvas.height = innerHeight;
   }
 }
-
-animate();
-bg.spawnClouds();
-startPourMeter();
 
 setInterval(() => {
   if (key.space.pressed) {
@@ -299,11 +337,17 @@ function startPourMeter() {
     if (!isTime && firstTime) {
       isTime = true;
       firstTime = false;
+      curTarget = new Salmon(canvas.width, canvas.height - 30);
     } else if (isTime && !firstTime) {
       isTime = false;
       pourMeter.indicator.reset();
+      if (curTarget) {
+        offTarget = curTarget;
+        curTarget = null;
+      }
     } else {
       isTime = true;
+      curTarget = new Salmon(canvas.width, canvas.height - 30);
     }
   }, 3000);
 }
