@@ -31,7 +31,11 @@ It's a game where the player is an eagle that is flying through the sky and has 
 - [x] Start Screen
   - [x] Start Button
   - [x] Controls page
+- [x] Adding sprites
 
 ## Resources
 
 - https://pixelartmaker.com/art/1289396574d3298
+- https://shubibubi.itch.io/cozy-fishing
+- https://www.youtube.com/watch?v=4q2vvZn5aoo&t=5013s
+- https://www.youtube.com/watch?v=eI9idPTT0c4&t=2511s

@@ -12,19 +12,22 @@ const controlsModal = document.querySelector("#controlsModalEl");
 const controlsBtn = document.querySelector("#controlsBtn");
 const backBtn = document.querySelector("#backBtn");
 
+const baldEagle = new Image();
+const fish = new Image();
+
+fish.src = "./img/fish.png";
+baldEagle.src = "./img/bald-eagle-squa.png";
+
 class Player {
-  constructor(x, y, size, color) {
+  constructor(x, y, image) {
     this.x = x;
     this.y = y;
 
-    this.width = size;
-    this.height = size;
-    this.color = color;
+    this.image = image;
   }
 
   draw() {
-    c.fillStyle = this.color;
-    c.fillRect(this.x, this.y, this.width, this.height);
+    c.drawImage(this.image, this.x, this.y);
   }
 }
 
@@ -257,16 +260,17 @@ class PourMeter {
 }
 
 class Salmon {
-  constructor(x, y) {
+  constructor(x, y, image) {
     this.x = x;
     this.y = y;
+
+    this.image = image;
 
     this.swimSpeed = 5;
   }
 
   draw() {
-    c.fillStyle = "#FFB19A";
-    c.fillRect(this.x, this.y, 15, 15);
+    c.drawImage(this.image, this.x, this.y - 10, 32, 32);
   }
 
   update() {
@@ -282,7 +286,7 @@ let key = {
     pressed: false,
   },
 };
-let player = new Player(75, 250, 50, "red");
+let player = new Player(75, 250, baldEagle);
 let score = 0;
 let lives = 3;
 let curTarget = null;
@@ -303,7 +307,7 @@ function init() {
       pressed: false,
     },
   };
-  player = new Player(75, 250, 50, "red");
+  player = new Player(75, 250, baldEagle);
   score = 0;
   scoreEl.innerHTML = score;
   lives = 3;
@@ -339,7 +343,7 @@ function animate() {
       target.update();
 
       // removes salmon once off the screen
-      if (target.x < -15) {
+      if (target.x < -40) {
         nonTargets.splice(index, 1);
       }
     });
@@ -396,7 +400,7 @@ function startPourMeter() {
     if (!isTime && firstTime) {
       isTime = true;
       firstTime = false;
-      curTarget = new Salmon(canvas.width, canvas.height - 30);
+      curTarget = new Salmon(canvas.width, canvas.height - 30, fish);
     } else if (isTime && !firstTime) {
       isTime = false;
       pourMeter.indicator.reset();
@@ -408,7 +412,7 @@ function startPourMeter() {
       livesEl.innerHTML = lives;
     } else {
       isTime = true;
-      curTarget = new Salmon(canvas.width, canvas.height - 30);
+      curTarget = new Salmon(canvas.width, canvas.height - 30, fish);
     }
   }, 3000);
 }
