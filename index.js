@@ -189,9 +189,9 @@ class PourMeterIndicator {
   }
 
   update() {
-    if (this.x === this.endX - this.width) {
+    if (this.x >= this.endX - this.width) {
       this.hitRight = true;
-    } else if (this.x === this.startX) {
+    } else if (this.x <= this.startX) {
       this.hitRight = false;
     }
     if (!this.hitRight) {
@@ -253,6 +253,10 @@ class PourMeter {
       curTarget = null;
       isTime = false;
       this.indicator.reset();
+      this.indicator.speed += 0.2;
+      if (this.hitZoneWidth >= 15) {
+        this.hitZoneWidth -= 0.3;
+      }
       clearInterval(pourMeterInterval);
       startPourMeter();
     }
@@ -278,6 +282,7 @@ class Salmon {
   }
 }
 
+// let start = new Date();
 let bg = new Background(0, 0);
 let pourMeter = new PourMeter(canvas.width / 2 - 125, 50);
 let nonTargets = [];
